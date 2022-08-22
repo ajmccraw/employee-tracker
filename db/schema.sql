@@ -23,3 +23,13 @@ CREATE TABLE roles (
     PRIMARY KEY (id)
 );
 
+CREATE TABLE employees (
+    id INT NOT NULL AUTO_INCREMENT,
+    first_name varchar(30) NOT NULL,
+    last_name varchar(30) NOT NULL,
+    role_id INT NOT NULL,
+    manager_id INT,
+    CONSTRAINT fk_role FOREIGN KEY (role_id) REFERENCES roles(id),
+    CONSTRAINT fk_manager FOREIGN KEY (manager_id) REFERENCES employees(id) ON DELETE SET NULL,
+    PRIMARY KEY (id)
+);
