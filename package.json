@@ -16,5 +16,12 @@
   "bugs": {
     "url": "https://github.com/ajmccraw/employee-tracker/issues"
   },
-  "homepage": "https://github.com/ajmccraw/employee-tracker#readme"
+  "homepage": "https://github.com/ajmccraw/employee-tracker#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "mysql2": "^2.3.3"
+  },
+  "devDependencies": {
+    "jest": "^28.1.3"
+  }
 }
