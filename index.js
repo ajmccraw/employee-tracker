@@ -225,5 +225,28 @@ let questionList = () => {
       .catch((err) => console.log(err));
 };
 
+const makeQuestionOptionArrays = () => {
+    connection.query(`SELECT title
+    FROM roles
+    ORDER BY id ASC
+    `, (err, rows) => {
+      if (err) throw err;
+      rows.map((element) => {
+        rolesArray.push(element.title);
+      });
+    });
+    connection.query(`SELECT * FROM departments`, (err, rows) => {
+      if (err) throw err;
+      rows.map((element) => {
+        departmentsArray.push(element.name);
+      });
+    });
+    connection.query(`SELECT first_name, last_name FROM employees`, (err, rows) => {
+      if(err) throw err;
+      rows.map((element) => {
+        employeesArray.push(`${element.first_name} ${element.last_name}`)
+      });
+    })
+};
 
 
