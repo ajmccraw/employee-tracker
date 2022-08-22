@@ -249,4 +249,107 @@ const makeQuestionOptionArrays = () => {
     })
 };
 
+let getDepartments = () => {
+    connection.query('SELECT * FROM departments', (err, rows) => {
+        if (err) throw err;
+        console.table(rows);
+    });
+};
 
+let getRoles = () => {
+    connection.query(
+        `SELECT roles.id, roles.title, roles.salary, departments.name
+        FROM roles
+        LEFT JOIN departments
+        ON roles.department_id = departments.id`,
+        (err, rows) => {
+        if (err) throw err;
+        console.table(rows);
+        }
+    );
+};
+
+let getEmployees = () => {
+    connection.query(
+        `SELECT E.ID, E.FIRST_NAME, E.LAST_NAME, R.TITLE, D.NAME AS dept, R.SALARY, M.FIRST_NAME AS manager_first, M.LAST_NAME AS manager_last
+        FROM EMPLOYEES E
+        left JOIN ROLES R ON E.ROLE_ID = R.ID
+        left JOIN DEPARTMENTS D ON R.DEPARTMENT_ID = D.ID
+        left JOIN EMPLOYEES M ON E.MANAGER_ID = M.ID`,
+        (err, rows) => {
+        if (err) throw err;
+        console.table(rows);
+        }
+    );
+};
+  
+let enterNewDepartment = (data) => {
+    connection.query(
+        `INSERT INTO departments (name) VALUES (?)`,
+        [data.name],
+        (err, rows) => {
+        if (err) throw err;
+        console.table(rows);
+        }
+    );
+};
+
+let enterNewRole = (data) => {
+    let departmentId = departmentsArray.indexOf(data.department) + 1;
+    connection.query(
+        `INSERT INTO roles (title, department_id, salary) VALUES (?, ?, ?)`,
+        [data.role, departmentId, parseInt(data.salary)],
+        (err, rows) => {
+        if (err) throw err;
+        console.table(rows);
+        }
+    );
+    rolesArray.push(data.name);
+};
+  
+let enterNewEmployee = (data) => {
+    let roleId = rolesArray.indexOf(data.role) + 1;
+    let managerId = employeesArray.indexOf(data.manager) + 1;
+
+    connection.query(
+        `INSERT INTO employees (first_name, last_name, role_id, manager_id) VALUES (?,?,?,?)`,
+        [data.first_name, data.last_name, roleId, managerId],
+        (err, rows) => {
+        if (err) throw err;
+        console.table(rows);
+        }
+    );
+};
+
+let updateEmployee = (data) => {
+    employeeId = employeesArray.indexOf(data.employee) +1;
+    roleId = rolesArray.indexOf(data.new_role) + 1;
+    connection.query(`UPDATE employees SET role_id = ? WHERE employees.id = ?`, 
+    [roleId, employeeId], 
+    (err, rows) => {
+        if (err) throw err;
+        console.table(rows);
+        }
+    );
+};
+
+let whenConnected = (res, rej) => {
+  
+    makeQuestionOptionArrays();
+    
+    res("yay!");
+    rej(err);
+
+    console.log ("");
+    console.log (company_name);
+    console.log ("employee tracker");
+    console.log ("");
+};
+    
+  let begin = () => {
+    new Promise(whenConnected).then(questionList).catch((error) => {
+      console.log(error);
+    });
+  };
+  
+  begin();
