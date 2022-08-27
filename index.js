@@ -13,7 +13,6 @@ let company_name = 'The Computer Company';
 
 const connection = mysql.createConnection({
     host: "localhost",
-    port: 3001,
     user: "root",
     password: "",
     database: "business"
