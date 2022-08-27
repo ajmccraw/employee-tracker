@@ -1,11 +1,11 @@
 DROP DATABASE IF EXISTS company;
-DROP TABLE IF EXISTS employees;
-DROP TABLE IF EXISTS roles;
-DROP TABLE IF EXISTS department;
-
 CREATE DATABASE business;
 
 USE business;
+
+DROP TABLE IF EXISTS employees;
+DROP TABLE IF EXISTS roles;
+DROP TABLE IF EXISTS department;
 
 CREATE TABLE departments (
     id INT NOT NULL AUTO_INCREMENT,
