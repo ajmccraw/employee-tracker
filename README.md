@@ -1,13 +1,17 @@
 # Employee Tracker
 
 ## Description
+This application will let someone keep track of all their employees in their company. This will include their names, roles, salaries, managers and departments. Users will have the option to add new employees, departments or roles, and they can change them as well.
 
 
 ## Goal
-
+Connect to database and make changes from the command line.
 
 ## Installation
-
+Requires node.js. Also, the following node apps will need to be installed:
+- inquirer
+- mysql2
+- console.table
 
 ### User Story
 
@@ -34,7 +38,7 @@ WHEN I choose to update an employee role
 THEN I am prompted to select an employee to update and their new role and this information is updated in the database
 
 ## Usage
-
+![](/images/still-employee-tracker.png)
 
 ## License
 
