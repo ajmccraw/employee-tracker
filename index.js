@@ -14,7 +14,7 @@ let company_name = 'The Computer Company';
 const connection = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "",
+    password: "ijpiwugx7P7bKLvkdMvP",
     database: "business"
   });
 
